@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd//mybatis-3-mapper.dtd">
+<mapper namespace="StudentDao">
+
+	<insert id="addStudent" parameterType="StudentEntity">
+		INSERT INTO tb_demo(f_id,f_name)
+		VALUES(#{id},#{name})
+	</insert>
+	
+	<update id="updateStudent" parameterType="StudentEntity">
+		UPDATE tb_demo SET
+		f_name = #{name}
+		WHERE f_id = #{id};
+	</update>
+	
+	<delete id="deleteStudent" parameterType="StudentEntity">
+		DELETE FROM tb_demo
+		WHERE f_id = #{id};
+	</delete>
+	
+	<select id="getStudentByNumber" parameterType="String" resultMap="studentMap">
+		SELECT f_id,f_name
+		FROM tb_demo
+		WHERE f_id = #{id};
+	</select>
+	
+	<select id="getAllStudent"  parameterType="String" resultMap="studentMap">
+		SELECT f_id,f_name
+		FROM tb_demo;
+	</select>
+	
+	<resultMap type="StudentEntity" id="studentMap">
+		<id column="f_id" property="id" />
+		<result column="f_name" property="name" />
+	</resultMap>
+	
+</mapper>
